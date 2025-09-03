@@ -1,9 +1,13 @@
-from rest_framework.serializers import ModelSerializer
+from rest_framework import serializers
 from tasks.models import Task
 
-class TaskSerializer(ModelSerializer):
+class TaskSerializer(serializers.ModelSerializer):
+
+    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
+
     class Meta:
         model = Task
-        fields = '__all__' #type:ignore
+        fields = ['id', 'title', 'done', 'user'] 
+        read_only_fields = ['id']
 
 

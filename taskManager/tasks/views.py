@@ -11,7 +11,8 @@ class TaskList(ListCreateAPIView):
     serializer_class = TaskSerializer
 
     def get_queryset(self):
-        qs = Task.objects.all()
+        user = self.request.user
+        qs = Task.objects.filter(user=user)
 
         d = self.request.query_params.get('d') #type:ignore
         q = self.request.query_params.get('q') #type:ignore
@@ -32,6 +33,7 @@ class TaskList(ListCreateAPIView):
 
 
 class TaskDetail(RetrieveUpdateDestroyAPIView):
-    queryset = Task.objects.all()
     serializer_class = TaskSerializer
 
+    def get_queryset(self):
+        return Task.objects.filter(user=self.request.user)
