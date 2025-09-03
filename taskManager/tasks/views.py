@@ -1,8 +1,10 @@
 from django.db.models import Q
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.exceptions import ValidationError
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from .serializer import TaskSerializer
 from tasks.models import Task
+from .permissions import IsOwner
 # Create your views here.
 
 
@@ -34,6 +36,7 @@ class TaskList(ListCreateAPIView):
 
 class TaskDetail(RetrieveUpdateDestroyAPIView):
     serializer_class = TaskSerializer
+    permission_classes = [IsAuthenticated, IsOwner]
 
     def get_queryset(self):
         return Task.objects.filter(user=self.request.user)
