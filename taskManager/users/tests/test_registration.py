@@ -116,6 +116,28 @@ def test_user_registration_username_in_use(test_user):
 
 
 
+@pytest.mark.django_db
+def test_user_registration_username_too_long():
+    client = APIClient()
+    url = reverse("register")
+
+    payload = {
+        "username": "testuserwithanamethatsfartoolongtobereal",
+        "email": "test@example.com",
+        "password": "strongpass123"
+    }
+
+    response = client.post(url, payload, format="json")
+
+    assert response.status_code == 400 # type: ignore
+    assert "username" in response.data # type: ignore
+    assert response.data["username"][0] == "Ensure this field has no more than 20 characters." # type: ignore
+
+
+
+
+
+
 
 
 
