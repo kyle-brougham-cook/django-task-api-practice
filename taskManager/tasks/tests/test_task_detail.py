@@ -65,4 +65,4 @@ def test_patch_user_task_success(loggedin_user):
 
     assert response.status_code == 200 # type: ignore
     assert response.data["title"] == "newTask" # type: ignore
-    assert response.data["description"] == "testtask" # type: ignore
+    assert response.data["description"] == "testusertask" # type: ignore

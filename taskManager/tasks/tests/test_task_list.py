@@ -17,7 +17,7 @@ def test_get_all_user_tasks(loggedin_user):
 
     assert response.status_code == 200 # type: ignore
     assert response.data[0]["title"] == "test" # type: ignore
-    assert response.data[0]["description"] == "testtask" # type: ignore
+    assert response.data[0]["description"] == "testusertask" # type: ignore
 
 
 
@@ -32,9 +32,9 @@ def test_post_new_user_task(loggedin_user):
     response = client.post(
         url, {
             "title": "test",
-            "description": "testtask"
+            "description": "testusertask"
         }, format="json")
 
     assert response.status_code == 201 # type: ignore
     assert response.data["title"] == "test" # type: ignore
-    assert response.data["description"] == "testtask" # type: ignore
+    assert response.data["description"] == "testusertask" # type: ignore

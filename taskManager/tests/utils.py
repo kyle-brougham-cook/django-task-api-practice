@@ -7,7 +7,7 @@ def get_access_token(client, username, password):
     return response.data["access"]
 
 
-def create_new_task(client, title="test", description="testtask"):
+def create_new_task(client, title="test", description="testusertask"):
     response = client.post("/tasks/", {
         "title": title,
         "description": description
